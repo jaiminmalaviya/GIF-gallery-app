@@ -41,27 +41,23 @@ const Register = () => {
                 userData.email,
                 userData.password
             )
-
             await updateProfile(auth.currentUser, {
                 displayName: userData.name,
             })
 
             toast.success('Successfully account created!')
             const userId = userCredential.user.uid
-
             await setDoc(doc(db, 'users', userId), {
                 userId,
                 name: userData.name,
                 email: userData.email,
                 favoriteGif: [],
             })
-
             router.push('/')
         } catch (error) {
             console.log(error)
             toast.error(error.message)
         }
-
         setUserData({ name: '', email: '', password: '' })
     }
 
