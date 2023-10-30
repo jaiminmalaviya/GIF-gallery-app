@@ -25,14 +25,17 @@ export const GET = async (request, { params }) => {
         )
     )
 
+    if (!querySnapshot.empty) {
+        await updateDoc(userRef, {
+            favoriteGif: arrayRemove(gifId),
+        })
+    } else {
+        await updateDoc(userRef, {
+            favoriteGif: arrayUnion(gifId),
+        })
+    }
+
     const userFavoriteGif = await getDoc(userRef)
-    const isGifInFavorites = !querySnapshot.empty
-
-    const updateObject = isGifInFavorites
-        ? { favoriteGif: arrayRemove(gifId) }
-        : { favoriteGif: arrayUnion(gifId) }
-
-    await updateDoc(userRef, updateObject)
 
     return new Response(JSON.stringify(userFavoriteGif.data()?.favoriteGif), { status: 200 })
 }

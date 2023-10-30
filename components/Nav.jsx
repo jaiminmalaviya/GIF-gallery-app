@@ -12,11 +12,9 @@ const Nav = () => {
     const router = useRouter()
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((authUser) => {
+        auth.onAuthStateChanged((authUser) => {
             setUser(authUser)
-            setLoading(false)
         })
-        return () => unsubscribe()
     }, [router])
 
     const Logout = () => {
