@@ -34,35 +34,46 @@ const Feed = ({ authUser }) => {
     }, [])
 
     useEffect(() => {
+        let cancelRequest = null
+        let isMounted = true
+
         const fetchData = async () => {
             try {
                 setLoading(true)
-                setPrevSearch(() => search)
+                const currentSearch = search
+                setPrevSearch(() => currentSearch)
 
                 let url = `https://api.giphy.com/v1/gifs/trending?api_key=GlVGYHkr3WSBnllca54iNt0yFbjz7L65&limit=${limit}&offset=${offset}`
 
-                if (search) {
-                    url = `https://api.giphy.com/v1/gifs/search?api_key=GlVGYHkr3WSBnllca54iNt0yFbjz7L65&q=${search}&limit=${limit}&offset=${offset}`
+                if (currentSearch) {
+                    url = `https://api.giphy.com/v1/gifs/search?api_key=GlVGYHkr3WSBnllca54iNt0yFbjz7L65&q=${currentSearch}&limit=${limit}&offset=${offset}`
                 }
-                search !== prevSearch && handlePageChange(1)
+                if (currentSearch !== prevSearch) handlePageChange(1)
+                if (cancelRequest) cancelRequest()
 
-                const response = await axios.get(url)
-                setGifs(
-                    Array.from(new Set(response.data.data.map((obj) => obj.id))).map((id) => {
-                        return response.data.data.find((obj) => obj.id === id)
-                    })
-                )
+                const { data } = await axios.get(url, {
+                    cancelToken: new axios.CancelToken((c) => (cancelRequest = c)),
+                })
+
+                if (isMounted) {
+                    const uniqueGifs = Array.from(new Set(data.data.map((obj) => obj.id))).map(
+                        (id) => data.data.find((obj) => obj.id === id)
+                    )
+                    setGifs(uniqueGifs)
+                }
             } catch (error) {
-                toast.error(error)
+                if (axios.isCancel(error)) console.log('Request canceled', error.message)
+                else toast.error(error)
             } finally {
-                setLoading(false)
+                if (isMounted) setLoading(false)
             }
         }
-        const source = axios.CancelToken.source()
-        fetchData()
+
+        const timeout = setTimeout(fetchData, 500) // Adjust the timeout duration as needed
 
         return () => {
-            source.cancel('Operation canceled by cleanup')
+            clearTimeout(timeout)
+            isMounted = false
         }
     }, [search, offset])
 

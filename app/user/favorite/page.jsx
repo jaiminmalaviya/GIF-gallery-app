@@ -18,14 +18,23 @@ const Favorite = () => {
     const searchParams = useSearchParams()
 
     useEffect(() => {
-        setLoading(true)
-        setUserId(() => searchParams.get('uid'))
-        ;(async () => {
-            const userFavoriteGif = await getDoc(doc(db, 'users', searchParams.get('uid')))
-            setFavorites(userFavoriteGif.data().favoriteGif)
-        })()
-        setLoading(false)
-    }, [])
+        setUserId(searchParams.get('uid'))
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const userId = searchParams.get('uid')
+                if (userId) {
+                    const userFavoriteGif = await getDoc(doc(db, 'users', userId))
+                    setFavorites(userFavoriteGif.data().favoriteGif)
+                }
+            } catch (error) {
+                console.error('Error fetching user favorite GIF:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchData()
+    }, [searchParams])
 
     useEffect(() => {
         setLoading(true)

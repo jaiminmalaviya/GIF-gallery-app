@@ -42,7 +42,7 @@ const Register = () => {
                 userData.password
             )
             await updateProfile(auth.currentUser, {
-                displayName: userData.name,
+                displayName: e.target.name.value,
             })
 
             toast.success('Successfully account created!')
