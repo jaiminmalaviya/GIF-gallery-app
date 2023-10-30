@@ -12,9 +12,11 @@ const Nav = () => {
     const router = useRouter()
 
     useEffect(() => {
-        auth.onAuthStateChanged((authUser) => {
+        const unsubscribe = auth.onAuthStateChanged((authUser) => {
             setUser(authUser)
+            setLoading(false)
         })
+        return () => unsubscribe()
     }, [router])
 
     const Logout = () => {
@@ -39,7 +41,7 @@ const Nav = () => {
             {user && (
                 <div className="flex items-center sm:gap-x-5 gap-2">
                     <span className="font-semibold md:text-lg text-base hidden sm:block">
-                        Hello, {user && user.providerData[0].displayName}
+                        Hello, {user && user.displayName}
                     </span>
                     <Link href={`/user/favorite?uid=${user.uid}`} className="">
                         <svg
