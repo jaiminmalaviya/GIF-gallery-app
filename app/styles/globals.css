@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-color: #000000;
+    --background-color: #e8eaee;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-color: #000000;
+        --background-color: #e8eaee;
+    }
+}
+
+body {
+    color: var(--foreground-color);
+    background: var(--background-color);
+}
+
+button {
+    outline: 0;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 4px solid #a09e9e;
+    border-right: 3px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.absolute_center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
