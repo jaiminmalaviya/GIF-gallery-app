@@ -35,9 +35,9 @@ const Register = () => {
    }
 
    return (
-      <div className="w-full m-auto bg-white rounded-2xl shadow md:mt-0 sm:max-w-md xl:p-0 pb-10 md:pb-5">
+      <div className="w-full m-auto bg-white rounded-2xl shadow md:mt-0 sm:max-w-md pb-10 md:pb-4">
          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-3xl ">
+            <h1 className="text-2xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-3xl ">
                Create Account
             </h1>
             <form
