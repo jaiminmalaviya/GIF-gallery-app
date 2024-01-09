@@ -31,12 +31,18 @@ export async function POST(request) {
          return NextResponse.json('User not found', { status: 400 })
       }
 
-      await prisma.user.update({
-         where: { email: email },
+      // await prisma.user.update({
+      //    where: { email: email },
+      //    data: {
+      //       loginTimes: {
+      //          push: new Date(),
+      //       },
+      //    },
+      // })
+
+      await prisma.loginTime.create({
          data: {
-            loginTimes: {
-               push: new Date(),
-            },
+            userId: user.id,
          },
       })
 

@@ -82,7 +82,6 @@ export async function POST(request) {
       }
 
       cookies().set('user', JSON.stringify(localUser))
-      console.log(localUser)
 
       return NextResponse.json(localUser.favorites, { status: 200 })
    } catch (error) {

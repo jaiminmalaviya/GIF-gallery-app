@@ -16,15 +16,9 @@ export async function POST(request) {
       const data = response.data
 
       if (currentPage === 1) {
-         await prisma.searchKeyword.upsert({
-            where: { keyword: search },
-            create: {
+         await prisma.searchKeyword.create({
+            data: {
                keyword: search,
-               timestamps: [new Date()],
-            },
-            update: {
-               timestamps: { push: new Date() },
-               latestSearch: new Date(),
             },
          })
       }

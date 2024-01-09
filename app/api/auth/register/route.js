@@ -19,7 +19,13 @@ export async function POST(request) {
          data: {
             name,
             email,
-            loginTimes: [new Date()],
+            // loginTimes: [new Date()],
+         },
+      })
+
+      await prisma.loginTime.create({
+         data: {
+            userId: user.id,
          },
       })
 
