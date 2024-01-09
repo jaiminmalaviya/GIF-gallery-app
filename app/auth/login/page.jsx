@@ -34,7 +34,7 @@ const Login = () => {
    }
 
    return (
-      <div className="w-full m-auto bg-white rounded-2xl shadow mt-16 md:mt-6 sm:max-w-md pb-10 md:pb-5">
+      <div className="w-full m-auto bg-white rounded-2xl shadow mt-20 md:mt-6 sm:max-w-md pb-10 md:pb-5">
          <div className="p-6 space-y-6 md:space-y-6 sm:p-8">
             <h1 className="text-2xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-3xl ">
                Login
