@@ -6,7 +6,7 @@ const Navbar = async () => {
    const user = await getUserCookie()
 
    return (
-      <nav className="flex justify-between items-center sm:p-8 p-2 md:px-16 mb-5">
+      <nav className="flex justify-between items-center sm:p-8 p-4 md:px-16 sm:mb-5 mb-0">
          <Link href={user ? '/' : '/auth/login'}>
             <h1 className="md:text-5xl text-4xl font-bold bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text md:leading-[64px] leading-[48px]">
                GIF Gallery

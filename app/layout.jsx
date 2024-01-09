@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
             />
          </head>
          <body>
-            <main className="overflow-x-hidden min-h-screen mx-2 sm:mx-5">
+            <main className="overflow-x-hidden flex flex-col min-h-screen mx-2 sm:mx-5">
                <Toaster
                   position="bottom-right"
                   reverseOrder={false}
